@@ -1,4 +1,4 @@
-#include "Dispatcher.h"
+#include "nmdbus/Dispatcher.h"
 
 Dispatcher::Dispatcher()
     : m_dispatcher("bus:system")

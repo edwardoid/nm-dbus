@@ -1,6 +1,6 @@
-#include "Settings.h"
+#include "nmdbus/Settings.h"
 #include "NetworkManagerInterfaces.h"
-#include "Connection.h"
+#include "nmdbus/Connection.h"
 
 Settings::Settings()
 {}

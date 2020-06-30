@@ -1,5 +1,4 @@
-#include "Connection.h"
-
+#include "nmdbus/Connection.h"
 #include "SettingsInterfaces.h"
 
 Connection::Connection(const ObjectPath& path)

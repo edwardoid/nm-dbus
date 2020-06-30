@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DbusHelpers.h"
+#include "ForwardProxy.h"
 #include "Settings.h"
 #include <memory>
 #include <thread>

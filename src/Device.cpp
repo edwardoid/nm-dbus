@@ -1,7 +1,7 @@
-#include "Device.h"
+#include "nmdbus/Device.h"
 #include "NetworkManagerInterfaces.h"
-#include "ActiveConnection.h"
-#include "WirelessDevice.h"
+#include "nmdbus/ActiveConnection.h"
+#include "nmdbus/WirelessDevice.h"
 
 Device::Device(const ObjectPath& path)
     : DBusObject(path)

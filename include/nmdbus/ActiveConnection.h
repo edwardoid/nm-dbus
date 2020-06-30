@@ -1,6 +1,7 @@
 #pragma once
 
-#include "DbusHelpers.h"
+#include "DBusTypes.h"
+#include "ForwardProxy.h"
 
 class ActiveConnection
 {

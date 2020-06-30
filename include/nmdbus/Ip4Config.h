@@ -1,7 +1,7 @@
 #pragma once
 
-#include "DbusHelpers.h"
-#include <memory>
+#include "DBusTypes.h"
+#include "ForwardProxy.h"
 
 class Ip4Config
 {

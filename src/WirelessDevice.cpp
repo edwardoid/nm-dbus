@@ -1,5 +1,5 @@
-#include "WirelessDevice.h"
-#include "AccessPoint.h"
+#include "nmdbus/WirelessDevice.h"
+#include "nmdbus/AccessPoint.h"
 #include "NetworkManagerDeviceInterfaces.h"
 #include <iostream>
 #include <mutex>

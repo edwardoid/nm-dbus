@@ -1,0 +1,11 @@
+@PACKAGE_INIT@
+
+# Same syntax as find_package
+find_dependency(Simppl REQUIRED)
+
+check_required_components(NmDbus)
+
+if(NOT TARGET NmDbus::NmDbus)
+    # Provide path for scripts
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
+endif()

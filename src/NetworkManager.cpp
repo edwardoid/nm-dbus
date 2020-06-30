@@ -1,13 +1,13 @@
-#include "NetworkManager.h"
-#include "Dispatcher.h"
+#include "nmdbus/NetworkManager.h"
+#include "nmdbus/Dispatcher.h"
 #include "FreeDesktopInterfaces.h"
-#include "UUID.h"
-#include "Device.h"
-#include "WirelessDevice.h"
-#include "AccessPoint.h"
-#include "Connection.h"
-#include "ActiveConnection.h"
-#include "Settings.h"
+#include "nmdbus/UUID.h"
+#include "nmdbus/Device.h"
+#include "nmdbus/WirelessDevice.h"
+#include "nmdbus/AccessPoint.h"
+#include "nmdbus/Connection.h"
+#include "nmdbus/ActiveConnection.h"
+#include "nmdbus/Settings.h"
 
 NetworkManager::NetworkManager()
 {

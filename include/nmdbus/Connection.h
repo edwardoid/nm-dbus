@@ -1,7 +1,8 @@
 #pragma once
 
 #include "DbusObject.h"
-#include "DbusHelpers.h"
+#include "DBusTypes.h"
+#include "ForwardProxy.h"
 
 class Connection: public DBusObject
 {

@@ -3,7 +3,8 @@
 
 #include <memory>
 #include "DbusObject.h"
-#include "DbusHelpers.h"
+#include "DBusTypes.h"
+#include "ForwardProxy.h"
 
 class AccessPoint: public DBusObject
 {

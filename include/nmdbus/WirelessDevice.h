@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Device.h"
+#include <vector>
 
 class WirelessDevice: public Device
 {
 public:
-    WirelessDevice(const ObjectPath& device);
+    WirelessDevice(const simppl::dbus::ObjectPath& device);
     uint32_t mode();
     uint32_t bitrate();
     std::vector<std::shared_ptr<class AccessPoint>> accessPoints();

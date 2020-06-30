@@ -24,11 +24,11 @@ namespace org
 
             INTERFACE(Settings)
             {
-                Method<out<std::vector<ObjectPath>>> ListConnections;
-                Method<in<std::string>, out<ObjectPath>> GetConnectionByUuid;
-                Method<in<ConnectionData>, out<ObjectPath>> AddConnection;
-                Signal<ObjectPath> NewConnection;
-                Signal<ObjectPath> ConnectionRemoved;
+                Method<out<std::vector<simppl::dbus::ObjectPath>>> ListConnections;
+                Method<in<std::string>, out<simppl::dbus::ObjectPath>> GetConnectionByUuid;
+                Method<in<ConnectionData>, out<simppl::dbus::ObjectPath>> AddConnection;
+                Signal<simppl::dbus::ObjectPath> NewConnection;
+                Signal<simppl::dbus::ObjectPath> ConnectionRemoved;
                 Settings()
                     : INIT(ListConnections)
                     , INIT(GetConnectionByUuid)

@@ -1,4 +1,4 @@
-#include "AccessPoint.h"
+#include "nmdbus/AccessPoint.h"
 #include "NetworkManagerInterfaces.h"
 
 AccessPoint::AccessPoint(const ObjectPath& path)

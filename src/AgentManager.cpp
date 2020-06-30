@@ -1,4 +1,4 @@
-#include "AgentManager.h"
+#include "nmdbus/AgentManager.h"
 #include "NetworkManagerInterfaces.h"
 
 AgentManager::AgentManager()

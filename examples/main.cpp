@@ -1,9 +1,9 @@
-#include "NetworkManager.h"
-#include "Device.h"
-#include "WirelessDevice.h"
-#include "ActiveConnection.h"
-#include "AccessPoint.h"
-#include "Ip4Config.h"
+#include <nmdbus/NetworkManager.h>
+#include <nmdbus/Device.h>
+#include <nmdbus/WirelessDevice.h>
+#include <nmdbus/ActiveConnection.h>
+#include <nmdbus/AccessPoint.h>
+#include <nmdbus/Ip4Config.h>
 #include <iostream>
 #include <cstdio>
 

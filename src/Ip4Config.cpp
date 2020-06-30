@@ -1,4 +1,4 @@
-#include "Ip4Config.h"
+#include "nmdbus/Ip4Config.h"
 #include "NetworkManagerInterfaces.h"
 
 Ip4Config::Ip4Config(ObjectPath& path)

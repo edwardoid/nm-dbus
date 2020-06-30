@@ -1,6 +1,7 @@
-#include "ActiveConnection.h"
+#include "nmdbus/ActiveConnection.h"
 #include "NetworkManagerInterfaces.h"
-#include "Ip4Config.h"
+#include "nmdbus/Ip4Config.h"
+#include "DbusHelpers.h"
 
 ActiveConnection::ActiveConnection(ObjectPath& path)
     : m_proxy(path)
