@@ -7,10 +7,29 @@
 #include <iostream>
 #include <cstdio>
 
+using namespace nm;
+
+void printActiveConnections(const std::vector<std::shared_ptr<ActiveConnection>>& acp)
+{
+    for(auto c : acp) {
+        std::cout << "Active connection changed to: " <<c->uuid() << "\n";
+    }
+}
+
 int main()
 {
     try {
     NetworkManager nm;
+
+    nm.ActiveConnectionsChanged.connect(
+        [](const std::vector<std::shared_ptr<ActiveConnection>>& acp)
+        {
+            std::cout << "Notified about active connections change [BEGIN]\n";
+            printActiveConnections(acp);
+            std::cout << "Notified about active connections change [END]\n";
+        }
+    );
+
     auto dev = nm.getDevice("wlp4s0");
 
     if (dev == nullptr) {
@@ -49,7 +68,12 @@ int main()
         std::cout << "NEW AP: " << ap->ssid() << " Signal: " << ap->strength() << "%\n";
     }
 
-    nm.connect("wlp4s0", "Aquabox", "azazello");
+    nm.connect("wlp4s0", "Aquabox", "12345678");
+
+    while ( 'e' != std::getchar() ) {
+        std::cout << "Dump: \n";
+        printActiveConnections(nm.activeConnections());
+    }
     } catch(std::exception e) {
         std::cerr << "Exception: " << e.what();
     } catch(...) {

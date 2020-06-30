@@ -2,6 +2,8 @@
 
 #include "DbusHelpers.h"
 
+using namespace nm;
+
 namespace org
 {
     namespace freedesktop
@@ -18,6 +20,7 @@ namespace org
                 {
                     Property<uint32_t> Mode;
                     Property<uint32_t> Bitrate;
+                    Property<ObjectPath> ActiveAccessPoint;
                     Method<out<std::vector<ObjectPath>>> GetAllAccessPoints;
                     typedef std::map<
                                     std::string,
@@ -32,6 +35,7 @@ namespace org
                     Wireless()
                         : INIT(Mode)
                         , INIT(Bitrate)
+                        , INIT(ActiveAccessPoint)
                         , INIT(GetAllAccessPoints)
                         , INIT(RequestScan)
                         , INIT(ScanDone)

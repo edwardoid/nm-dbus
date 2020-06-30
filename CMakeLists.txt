@@ -40,14 +40,13 @@ set_target_properties(NMDBus PROPERTIES PUBLIC_HEADER
 include(GNUInstallDirs)
 configure_file(${CMAKE_CURRENT_LIST_DIR}/NMDBus.pc.in NMDBus.pc @ONLY)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
-find_package(DBUS REQUIRED)
+find_package(dbus REQUIRED)
 find_package(simppl REQUIRED)
 
 target_include_directories(NMDBus PRIVATE include)
 
 target_link_libraries(NMDBus PUBLIC
-    DBUS::DBUS
+    dbus::dbus
     simppl
     ${CMAKE_THREAD_LIBS_INIT}
 )

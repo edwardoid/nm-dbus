@@ -4,6 +4,7 @@
 #include <random>
 #include <sstream>
 
+namespace nm {
 namespace uuid {
     static std::random_device              rd;
     static std::mt19937                    gen(rd());
@@ -36,4 +37,4 @@ namespace uuid {
         };
         return ss.str();
     }
-}
+} }

@@ -2,6 +2,8 @@
 
 #include "DbusHelpers.h"
 
+using namespace nm;
+
 namespace org
 {
     namespace freedesktop
@@ -10,21 +12,24 @@ namespace org
         using simppl::dbus::out;
         using simppl::dbus::oneway;
 
-        namespace Settings
+        namespace NetworkManager
         {
-            INTERFACE(Connection)
+            namespace Settings
             {
-                Method<out<ConnectionData> > GetSettings;
-                Method<in<ConnectionData> > Update;
-                Method<> Save;
-                Connection()
-                    : INIT(GetSettings)
-                    , INIT(Update)
-                    , INIT(Save)
-                {}
-            };
+                INTERFACE(Connection)
+                {
+                    Method<out<ConnectionData> > GetSettings;
+                    Method<in<ConnectionData> > Update;
+                    Method<> Save;
+                    Connection()
+                        : INIT(GetSettings)
+                        , INIT(Update)
+                        , INIT(Save)
+                    {}
+                };
+            }
         }
     }
 }
 
-PROXY(Connection, org::freedesktop::Settings::Connection);
+PROXY(Connection, org::freedesktop::NetworkManager::Settings::Connection);

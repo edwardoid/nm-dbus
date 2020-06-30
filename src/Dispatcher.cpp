@@ -1,5 +1,7 @@
 #include "nmdbus/Dispatcher.h"
 
+using namespace nm;
+
 Dispatcher::Dispatcher()
     : m_dispatcher("bus:system")
 {}

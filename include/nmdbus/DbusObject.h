@@ -2,12 +2,15 @@
 
 #include <simppl/objectpath.h>
 
-class DBusObject
+namespace nm
 {
-public:
-    DBusObject(const simppl::dbus::ObjectPath& path)
-    : m_path(path) {}
-    simppl::dbus::ObjectPath path() { return m_path; }
-protected:
-    simppl::dbus::ObjectPath m_path;
-};
+    class DBusObject
+    {
+    public:
+        DBusObject(const simppl::dbus::ObjectPath& path)
+        : m_path(path) {}
+        simppl::dbus::ObjectPath path() { return m_path; }
+    protected:
+        simppl::dbus::ObjectPath m_path;
+    };
+}

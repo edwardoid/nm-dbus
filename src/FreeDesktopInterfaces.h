@@ -2,6 +2,8 @@
 
 #include "DbusHelpers.h"
 
+using namespace nm;
+
 namespace org
 {
     namespace freedesktop
@@ -17,27 +19,31 @@ namespace org
 
             Method<in<ConnectionData>, in<ObjectPath>, in<ObjectPath>, out<ObjectPath>, out<ObjectPath>> AddAndActivateConnection;
             Method<in<ObjectPath>, in<ObjectPath>, in<ObjectPath>, out<ObjectPath>> ActivateConnection;
+            Property<uint32_t> Connectivity;
+            Property<uint32_t> State;
+            Property<std::vector<ObjectPath>> ActiveConnections;
+            Signal<uint32_t> StateChanged;
             NetworkManager()
                 : INIT(state)
                 , INIT(GetDeviceByIpIface)
                 , INIT(AddAndActivateConnection)
                 , INIT(ActivateConnection)
+                , INIT(Connectivity)
+                , INIT(State)
+                , INIT(ActiveConnections)
+                , INIT(StateChanged)
                 {}
         };
     }
 }
 
-struct NetworkManagerProxy : simppl::dbus::Stub<org::freedesktop::NetworkManager>
+namespace nm
 {
-    NetworkManagerProxy()
-     : simppl::dbus::Stub<org::freedesktop::NetworkManager>(Dispatcher::dispatcher(), "org.freedesktop.NetworkManager", "/org/freedesktop/NetworkManager")
+    struct NetworkManagerProxy : simppl::dbus::Stub<org::freedesktop::NetworkManager>
     {
-        connected >> [this](const simppl::dbus::ConnectionState st){
-
-            if (st == simppl::dbus::ConnectionState::Connected)
-            {
-                std::cout << "[Manager] Connected!";
-            }
-        };
-    }
-};
+        NetworkManagerProxy()
+        : simppl::dbus::Stub<org::freedesktop::NetworkManager>(Dispatcher::dispatcher(), "org.freedesktop.NetworkManager", "/org/freedesktop/NetworkManager")
+        {
+        }
+    };
+}

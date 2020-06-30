@@ -2,11 +2,14 @@
 
 #include "ForwardProxy.h"
 
-class AgentManager
+namespace nm
 {
-public:
-    AgentManager();
-    ~AgentManager();
-private:
-    ForwardProxy<class AgentManagertProxy> m_proxy;
-};
+    class AgentManager
+    {
+    public:
+        AgentManager();
+        ~AgentManager();
+    private:
+        ForwardProxy<class AgentManagertProxy> m_proxy;
+    };
+}

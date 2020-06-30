@@ -1,8 +1,8 @@
 #include "nmdbus/WirelessDevice.h"
 #include "nmdbus/AccessPoint.h"
 #include "NetworkManagerDeviceInterfaces.h"
-#include <iostream>
-#include <mutex>
+
+using namespace nm;
 
 WirelessDevice::WirelessDevice(const ObjectPath& path)
     : Device(path)
@@ -40,14 +40,29 @@ std::vector<std::shared_ptr<AccessPoint>> WirelessDevice::accessPoints()
     return points;
 }
 
-bool WirelessDevice::scan()
+std::shared_ptr<AccessPoint> WirelessDevice::activeAccessPoint()
+{
+    SAFETY_FIRST_BEGIN
+    auto aap = m_proxy->ActiveAccessPoint.get();
+    if (aap.path.empty()) {
+        return nullptr;
+    }
+    return std::make_shared<AccessPoint>(aap);
+    SAFETY_FIRST_END
+    return nullptr;
+}
+
+bool WirelessDevice::scan(bool force)
 {
     try
     {
-        std::string forceScanCommand = "iwlist ";
-        forceScanCommand += interface();
-        forceScanCommand += " scan >> /dev/null";
-        system(forceScanCommand.c_str());
+        if (force)
+        {
+            std::string forceScanCommand = "iwlist ";
+            forceScanCommand += interface();
+            forceScanCommand += " scan >> /dev/null";
+            system(forceScanCommand.c_str());
+        }
 
         m_proxy->RequestScan(WirelessDeviceProxy::ScanOptions());
         return true;

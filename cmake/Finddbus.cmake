@@ -67,7 +67,13 @@ if(DBUS_FOUND)
     set(DBUS_LIBRARIES ${DBUS_LIBRARY})
     set(DBUS_INCLUDE_DIRS ${DBUS_INCLUDE_DIR} ${DBUS_ARCH_INCLUDE_DIR})
 
-    if(NOT TARGET DBUS::DBUS)
+    if(NOT TARGET dbus::dbus)
+        add_library(dbus::dbus UNKNOWN IMPORTED)
+        set_target_properties(dbus::dbus PROPERTIES
+            IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+            IMPORTED_LOCATION "${DBUS_LIBRARY}"
+            INTERFACE_INCLUDE_DIRECTORIES "${DBUS_INCLUDE_DIRS}")
+
         add_library(DBUS::DBUS UNKNOWN IMPORTED)
         set_target_properties(DBUS::DBUS PROPERTIES
             IMPORTED_LINK_INTERFACE_LANGUAGES "C"

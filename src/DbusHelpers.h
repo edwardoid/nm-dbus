@@ -16,8 +16,6 @@
 #include <nmdbus/Dispatcher.h>
 #include <nmdbus/DBusTypes.h>
 
-using ObjectPath = simppl::dbus::ObjectPath;
-
 #ifndef LOGGER_ERROR_STREAM
 
 #include <iostream>
@@ -40,10 +38,13 @@ using ObjectPath = simppl::dbus::ObjectPath;
                                          << "\nWhat: " << e.what() \
                                          << "\nSerial: " << e.serial() << '\n';
 
+#define SAFETY_FIRST_BEGIN try {
+#define SAFETY_FIRST_END } catch(simppl::dbus::Error e) { LOG_ERROR(e); }
+
 #define PROXY(Proxyof, Interface) \
-struct Proxyof ## Proxy  : public simppl::dbus::Stub<Interface> \
+namespace nm { struct Proxyof ## Proxy  : public simppl::dbus::Stub<Interface> \
 { \
     Proxyof ## Proxy (const simppl::dbus::ObjectPath& path) \
      : simppl::dbus::Stub<Interface>(Dispatcher::dispatcher(), "org.freedesktop.NetworkManager", path.path.c_str()) \
     {} \
-};
+}; }

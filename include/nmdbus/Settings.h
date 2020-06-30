@@ -3,11 +3,15 @@
 #include "DBusTypes.h"
 #include "ForwardProxy.h"
 
-class Settings
+namespace nm
 {
-public:
-    Settings();
-    std::shared_ptr<class Connection> createConnection(const ConnectionData&);
-private:
-    ForwardProxy<class SettingsProxy> m_proxy;
-};
+    class Settings
+    {
+    public:
+        Settings();
+        std::shared_ptr<class Connection> createConnection(const ConnectionData&);
+        std::shared_ptr<class Connection> getConnectionByUuid(const std::string& uuid);
+    private:
+        ForwardProxy<class SettingsProxy> m_proxy;
+    };
+}

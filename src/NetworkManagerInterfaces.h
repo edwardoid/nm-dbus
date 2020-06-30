@@ -2,6 +2,8 @@
 
 #include "DbusHelpers.h"
 
+using namespace nm;
+
 namespace org
 {
     namespace freedesktop
@@ -43,10 +45,12 @@ namespace org
                 Property<std::string> Driver;
                 Property<std::string> Interface;
                 Property<ObjectPath> ActiveConnection;
+                Property<ObjectPath> Ip4Config;
                 Device()
                     : INIT(Driver)
                     , INIT(Interface)
                     , INIT(ActiveConnection)
+                    , INIT(Ip4Config)
                 {}
             };
 
@@ -57,11 +61,17 @@ namespace org
                     Property<std::string> Uuid;
                     Property<std::string> Id;
                     Property<ObjectPath> Ip4Config;
+                    Property<ObjectPath> Connection;
+                    Property<std::vector<ObjectPath>> Devices;
+                    Method<out<ConnectionData>> GetSettings;
 
                     Active()
                         : INIT(Uuid)
                         , INIT(Id)
                         , INIT(Ip4Config)
+                        , INIT(Connection)
+                        , INIT(Devices)
+                        , INIT(GetSettings)
                     {}
                 };
             }
@@ -83,19 +93,35 @@ namespace org
 
             INTERFACE(AccessPoint)
             {
+                Property<uint32_t> Flags;
+                Property<uint32_t> WpaFlags;
+                Property<uint32_t> RsnFlags;
                 Property<SsidT> Ssid;
+                Property<uint32_t> Frequency;
                 Property<std::string> HwAddress;
+                Property<uint32_t> Mode;
+                Property<uint32_t> MaxBitrate;
                 Property<unsigned char> Strength;
+                Property<int> LastSeen;
                 AccessPoint()
-                    : INIT(Ssid)
+                    : INIT(Flags)
+                    , INIT(WpaFlags)
+                    , INIT(RsnFlags)
+                    , INIT(Ssid)
+                    , INIT(Frequency)
                     , INIT(HwAddress)
+                    , INIT(Mode)
+                    , INIT(MaxBitrate)
                     , INIT(Strength)
+                    , INIT(LastSeen)
                 {}
             };
         }
     }
 }
 
+namespace nm
+{
 struct AgentManagertProxy : simppl::dbus::Stub<org::freedesktop::NetworkManager::AgentManager>
 {
     AgentManagertProxy()
@@ -110,6 +136,7 @@ struct SettingsProxy : simppl::dbus::Stub<org::freedesktop::NetworkManager::Sett
      : simppl::dbus::Stub<org::freedesktop::NetworkManager::Settings>(Dispatcher::dispatcher(), "org.freedesktop.NetworkManager", "/org/freedesktop/NetworkManager/Settings")
     {}
 };
+}
 
 PROXY(Device, org::freedesktop::NetworkManager::Device);
 PROXY(ActiveConnection, org::freedesktop::NetworkManager::Connection::Active)

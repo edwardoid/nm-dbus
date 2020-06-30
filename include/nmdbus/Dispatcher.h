@@ -3,12 +3,15 @@
 
 #include "simppl/dispatcher.h"
 
-class Dispatcher
+namespace nm
 {
-public:
-    Dispatcher();
-    ~Dispatcher();
-    static simppl::dbus::Dispatcher& dispatcher();
-private:
-    simppl::dbus::Dispatcher m_dispatcher;
-};
+    class Dispatcher
+    {
+    public:
+        Dispatcher();
+        ~Dispatcher();
+        static simppl::dbus::Dispatcher& dispatcher();
+    private:
+        simppl::dbus::Dispatcher m_dispatcher;
+    };
+}
