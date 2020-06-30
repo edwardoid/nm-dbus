@@ -8,11 +8,11 @@ Connection::Connection(const ObjectPath& path)
     , m_proxy(path)
 {}
 
-ConnectionData Connection::settings()
+ConnectionSettings Connection::settings()
 {
     SAFETY_FIRST_BEGIN
     return m_proxy->GetSettings();
     SAFETY_FIRST_END
 
-    return ConnectionData();
+    return ConnectionSettings();
 }

@@ -13,7 +13,7 @@ namespace nm
         uint32_t bitrate();
         std::vector<std::shared_ptr<class AccessPoint>> accessPoints();
         std::shared_ptr<class AccessPoint> activeAccessPoint();
-        bool scan(bool force = true);
+        bool scan(bool force = false);
     private:
         ForwardProxy<class WirelessDeviceProxy> m_proxy;
     };

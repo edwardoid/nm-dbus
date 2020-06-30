@@ -1,8 +1,9 @@
 #pragma once
 
 #include "DbusObject.h"
-#include "DBusTypes.h"
-#include "ForwardProxy.h"
+#include <nmdbus/DBusTypes.h>
+#include <nmdbus/ConnectionSettings.h>
+#include <nmdbus/ForwardProxy.h>
 
 namespace nm
 {
@@ -10,7 +11,7 @@ namespace nm
     {
     public:
         Connection(const ObjectPath& path);
-        ConnectionData settings();
+        ConnectionSettings settings();
     private:
         ForwardProxy<class ConnectionProxy> m_proxy;
     };

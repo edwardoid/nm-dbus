@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DbusHelpers.h"
+#include "nmdbus/ConnectionSettings.h"
 
 using namespace nm;
 
@@ -18,7 +19,7 @@ namespace org
             {
                 INTERFACE(Connection)
                 {
-                    Method<out<ConnectionData> > GetSettings;
+                    Method<out<ConnectionSettings> > GetSettings;
                     Method<in<ConnectionData> > Update;
                     Method<> Save;
                     Connection()

@@ -206,16 +206,11 @@ bool NetworkManager::activate(std::shared_ptr<Connection> connection,
         return false;
     }
 
-    ConnectionData settings = connection->settings();
+    ConnectionSettings settings = connection->settings();
 
-    auto wirelessSection = settings.find(CONNECTION_DATA_WIRELESS_SECTION);
-    if (wirelessSection == settings.cend()) { return false; }
+    auto ssidEntry = settings.wireless.find("ssid");
 
-    auto wireless = wirelessSection->second;
-
-    auto ssidEntry = wireless.find("ssid");
-
-    if (ssidEntry == wireless.cend()) { return false; }
+    if (ssidEntry == settings.wireless.cend()) { return false; }
 
     std::string* ssid = ssidEntry->second.get<std::string>();
 

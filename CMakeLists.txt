@@ -51,7 +51,9 @@ target_link_libraries(NMDBus PUBLIC
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
-add_subdirectory(examples)
+if (BUILD_TESTING)
+    add_subdirectory(examples)
+endif()
 
 install(TARGETS ${PROJECT_NAME} EXPORT NMDBusConfig
         ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
