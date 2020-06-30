@@ -9,7 +9,19 @@ using namespace nm;
 Device::Device(const ObjectPath& path)
     : DBusObject(path)
     , m_proxy(path)
-{}
+{
+    m_proxy->connected >> [this](const simppl::dbus::ConnectionState st){
+
+        if (st == simppl::dbus::ConnectionState::Connected)
+        {
+            m_proxy->StateChanged.attach() >> [this] (uint32_t newState, uint32_t oldState, uint32_t) {
+                this->StateChanged(static_cast<NMDeviceState>(newState), static_cast<NMDeviceState>(oldState));
+            };
+        } else {
+            m_proxy->StateChanged.detach();
+        }
+    };
+}
 
 std::shared_ptr<WirelessDevice> Device::asWireless()
 {
@@ -28,7 +40,7 @@ std::shared_ptr<ActiveConnection> Device::activeConnection()
 {
     SAFETY_FIRST_BEGIN
     auto path = m_proxy->ActiveConnection.get();
-    if (path.path.empty()) {
+    if (path.empty()) {
         return nullptr;
     }
     return std::make_shared<ActiveConnection>(path);
@@ -40,10 +52,18 @@ std::shared_ptr<Ip4Config> Device::ipv4Configuration()
 {
     SAFETY_FIRST_BEGIN
     auto path = m_proxy->Ip4Config.get();
-    if (path.path.empty()) {
+    if (path.empty()) {
         return nullptr;
     }
     return std::make_shared<Ip4Config>(path);
     SAFETY_FIRST_END
     return nullptr;
+}
+
+NMDeviceState Device::state()
+{
+    SAFETY_FIRST_BEGIN
+    return static_cast<NMDeviceState>(m_proxy->State.get());
+    SAFETY_FIRST_END
+    return NMDeviceState::NM_DEVICE_STATE_UNKNOWN;
 }

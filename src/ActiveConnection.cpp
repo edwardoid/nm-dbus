@@ -23,7 +23,7 @@ std::shared_ptr<Connection> ActiveConnection::connection()
 {
     SAFETY_FIRST_BEGIN
     auto cref = m_proxy->Connection.get();
-    if (cref.path.empty()) {
+    if (cref.empty()) {
         return nullptr;
     }
     return std::make_shared<Connection>(cref);
@@ -35,7 +35,7 @@ std::shared_ptr<Ip4Config> ActiveConnection::ipv4Configuration()
 {
     SAFETY_FIRST_BEGIN
     auto path = m_proxy->Ip4Config.get();
-    if (path.path.empty()) {
+    if (path.empty()) {
         return nullptr;
     }
     return std::make_shared<Ip4Config>(path);

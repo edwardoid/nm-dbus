@@ -32,7 +32,7 @@ NetworkManager::NetworkManager()
             };
         } else {
             m_proxy->ActiveConnections.detach();
-
+            m_proxy->StateChanged.detach();
         }
     };
     std::thread m_dispatcherThread([this]() {
@@ -70,7 +70,7 @@ std::shared_ptr<Device> NetworkManager::getDevice(std::string ifname)
 {
     SAFETY_FIRST_BEGIN
     auto path = m_proxy->GetDeviceByIpIface(ifname);
-    if (path.path.empty()) {
+    if (path.empty()) {
         return nullptr;
     }
 
@@ -185,7 +185,7 @@ bool NetworkManager::connect(std::string ifname,
             if (c != nullptr) {
                 auto ac = m_proxy->ActivateConnection(c->path(), dev->path(), ap->path());
 
-                return !ac.path.empty();
+                return !ac.empty();
             }
 
             return false;
@@ -223,7 +223,7 @@ bool NetworkManager::activate(std::shared_ptr<Connection> connection,
             auto ac = m_proxy->ActivateConnection(connection->path(),
                                             device->path(), ap->path());
 
-            return !ac.path.empty();
+            return !ac.empty();
         }
     }
 

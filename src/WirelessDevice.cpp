@@ -44,7 +44,7 @@ std::shared_ptr<AccessPoint> WirelessDevice::activeAccessPoint()
 {
     SAFETY_FIRST_BEGIN
     auto aap = m_proxy->ActiveAccessPoint.get();
-    if (aap.path.empty()) {
+    if (aap.empty()) {
         return nullptr;
     }
     return std::make_shared<AccessPoint>(aap);

@@ -46,11 +46,15 @@ namespace org
                 Property<std::string> Interface;
                 Property<ObjectPath> ActiveConnection;
                 Property<ObjectPath> Ip4Config;
+                Property<uint32_t> State;
+                Signal<uint32_t /* new */, uint32_t /* old */, uint32_t /* reason */> StateChanged;
                 Device()
                     : INIT(Driver)
                     , INIT(Interface)
                     , INIT(ActiveConnection)
                     , INIT(Ip4Config)
+                    , INIT(State)
+                    , INIT(StateChanged)
                 {}
             };
 

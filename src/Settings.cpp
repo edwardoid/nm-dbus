@@ -11,7 +11,7 @@ std::shared_ptr<Connection> Settings::createConnection(const ConnectionData& dat
 {
     try {
         auto p = m_proxy->AddConnection(data);
-        return p.path.empty() ? nullptr : std::make_shared<Connection>(p);
+        return p.empty() ? nullptr : std::make_shared<Connection>(p);
     }
     catch(simppl::dbus::Error e)
     {
@@ -24,7 +24,7 @@ std::shared_ptr<class Connection> Settings::getConnectionByUuid(const std::strin
 {
     try {
         auto p = m_proxy->GetConnectionByUuid(uuid);
-        return p.path.empty() ? nullptr : std::make_shared<Connection>(p);
+        return p.empty() ? nullptr : std::make_shared<Connection>(p);
     }
     catch(simppl::dbus::Error e)
     {
