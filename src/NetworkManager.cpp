@@ -221,7 +221,7 @@ bool NetworkManager::activate(std::shared_ptr<Connection> connection,
     for(auto ap : wifiDev->accessPoints()) {
         if (ap->ssid() == *ssid) {
             auto ac = m_proxy->ActivateConnection(connection->path(),
-                                            device->path(), ap->path());
+                                                  device->path(), ap->path());
 
             return !ac.empty();
         }

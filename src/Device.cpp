@@ -15,12 +15,19 @@ Device::Device(const ObjectPath& path)
         if (st == simppl::dbus::ConnectionState::Connected)
         {
             m_proxy->StateChanged.attach() >> [this] (uint32_t newState, uint32_t oldState, uint32_t) {
-                this->StateChanged(static_cast<NMDeviceState>(newState), static_cast<NMDeviceState>(oldState));
+                StateChanged(static_cast<NMDeviceState>(newState), static_cast<NMDeviceState>(oldState));
             };
         } else {
             m_proxy->StateChanged.detach();
         }
     };
+
+    if (m_proxy->is_connected()) {
+        m_proxy->StateChanged.attach() >> [this] (uint32_t newState, uint32_t oldState, uint32_t) {
+            StateChanged(static_cast<NMDeviceState>(newState), static_cast<NMDeviceState>(oldState));
+        };
+        StateChanged(state(), NMDeviceState::NM_DEVICE_STATE_UNKNOWN);
+    }
 }
 
 std::shared_ptr<WirelessDevice> Device::asWireless()
