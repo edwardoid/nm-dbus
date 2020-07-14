@@ -48,3 +48,11 @@ namespace nm { struct Proxyof ## Proxy  : public simppl::dbus::Stub<Interface> \
      : simppl::dbus::Stub<Interface>(Dispatcher::dispatcher(), "org.freedesktop.NetworkManager", path.path.c_str()) \
     {} \
 }; }
+
+namespace nm
+{
+    struct Helpers
+    {
+        static std::string busnameFromObjectPath(const simppl::dbus::ObjectPath& path);
+    };
+}

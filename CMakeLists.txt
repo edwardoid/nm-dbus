@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.9)
 project(NMDBus VERSION 0.1.0 DESCRIPTION "A library to interact with network manager via DBus")
 
 add_library(NMDBus SHARED
+    ${CMAKE_CURRENT_LIST_DIR}/src/DbusHelpers.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/AccessPoint.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/ActiveConnection.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/AgentManager.cpp
