@@ -125,13 +125,14 @@ bool NetworkManager::createHotspot(std::string interface, std::string ssid, std:
     return false;
 }
 
-bool NetworkManager::connect(std::string ifname,
-                             std::string ssid, std::string password)
+std::string NetworkManager::connect(std::string ifname,
+                                    std::string ssid, std::string password)
 {
     SAFETY_FIRST_BEGIN
+    const std::string uuid = uuid::generate_uuid_v4();
     ConnectionDataSection _connection = {
                     { "type", std::string("802-11-wireless") },
-                    { "uuid", uuid::generate_uuid_v4() },
+                    { "uuid", uuid },
                     { "id", ssid },
                     { "autoconnect", uint64_t(1) },
                 };
@@ -154,13 +155,13 @@ bool NetworkManager::connect(std::string ifname,
     auto dev = getDevice(ifname);
 
     if (dev == nullptr) {
-        return false;
+        return "";
     }
 
     auto wifiDev = dev->asWireless();
 
     if (wifiDev == nullptr) {
-        return false;
+        return "";
     }
 
     for(auto ap : wifiDev->accessPoints()) {
@@ -185,15 +186,15 @@ bool NetworkManager::connect(std::string ifname,
             if (c != nullptr) {
                 auto ac = m_proxy->ActivateConnection(c->path(), dev->path(), ap->path());
 
-                return !ac.empty();
+                return !ac.empty() ? uuid : "";
             }
 
-            return false;
+            return "";
         }
     }
     LOGGER_ERROR_STREAM << "Network \"" << ssid << "\" was not found";
     SAFETY_FIRST_END
-    return false;
+    return "";
 }
 
 bool NetworkManager::activate(std::shared_ptr<Connection> connection,

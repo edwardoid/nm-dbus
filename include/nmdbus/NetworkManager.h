@@ -42,9 +42,9 @@ namespace nm
 
         bool createHotspot(std::string interface, std::string ssid, std::string passwd);
 
-        bool connect(std::string ifname,
-                    std::string ssid,
-                    std::string password);
+        std::string connect(std::string ifname,
+                            std::string ssid,
+                            std::string password);
 
         bool activate(std::shared_ptr<class Connection> connection,
                       std::shared_ptr<class Device> device);
