@@ -6,7 +6,6 @@
 #include <simppl/serialization.h>
 #include <simppl/struct.h>
 
-#include <iostream>
 namespace nm
 {
     struct ConnectionSettings
@@ -128,7 +127,6 @@ struct Codec<nm::ConnectionSettings>
             std::string propertyName;
             Codec<std::string>::decode(item_iterator, propertyName);
 
-            std::cout << "Decoding section " << propertyName << std::endl;
             if (propertyName == "connection")
             {
                 Codec<nm::ConnectionSettings::ConnectionSectionT>::decode(item_iterator, m.connection);
