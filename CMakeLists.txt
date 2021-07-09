@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.9)
 
 project(NMDBus VERSION 0.1.0 DESCRIPTION "A library to interact with network manager via DBus")
 
-add_library(NMDBus SHARED
+add_library(${PROJECT_NAME} SHARED
     ${CMAKE_CURRENT_LIST_DIR}/src/DbusHelpers.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/AccessPoint.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/ActiveConnection.cpp
@@ -16,11 +16,11 @@ add_library(NMDBus SHARED
     ${CMAKE_CURRENT_LIST_DIR}/src/WirelessDevice.cpp
 )
 
-set_property(TARGET NMDBus PROPERTY CXX_STANDARD 14)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 14)
 
-set_target_properties(NMDBus PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 
-set_target_properties(NMDBus PROPERTIES PUBLIC_HEADER 
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER 
     ${CMAKE_CURRENT_LIST_DIR}/include/nmdbus/AccessPoint.h
     ${CMAKE_CURRENT_LIST_DIR}/include/nmdbus/ActiveConnection.h
     ${CMAKE_CURRENT_LIST_DIR}/include/nmdbus/AgentManager.h
@@ -39,16 +39,16 @@ set_target_properties(NMDBus PROPERTIES PUBLIC_HEADER
 )
 
 include(GNUInstallDirs)
-configure_file(${CMAKE_CURRENT_LIST_DIR}/NMDBus.pc.in NMDBus.pc @ONLY)
+configure_file(${CMAKE_CURRENT_LIST_DIR}/NMDBus.pc.in DESTINATION ${CMAKE_BINARY_DIR}/NMDBus.pc)
 
-find_package(dbus REQUIRED)
+find_package(DBus1 REQUIRED)
 find_package(simppl REQUIRED)
 
-target_include_directories(NMDBus PRIVATE include)
+target_include_directories(${PROJECT_NAME} PRIVATE include)
 
-target_link_libraries(NMDBus PUBLIC
-    dbus::dbus
-    simppl
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    dbus-1::dbus-1
+    simppl::simppl
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
