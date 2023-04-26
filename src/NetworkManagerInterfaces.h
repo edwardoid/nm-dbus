@@ -85,7 +85,7 @@ namespace org
                 typedef std::vector<
                     std::map <
                         std::string, 
-                        simppl::Variant<std::string, uint32_t>
+                        std::variant<std::string, uint32_t>
                     >
                 > AdressDataT;
 

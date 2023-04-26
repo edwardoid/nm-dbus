@@ -40,7 +40,7 @@ std::shared_ptr<ActiveConnection> Device::activeConnection()
 {
     SAFETY_FIRST_BEGIN
     auto path = m_proxy->ActiveConnection.get();
-    if (path.empty()) {
+    if (empty(path)) {
         return nullptr;
     }
     return std::make_shared<ActiveConnection>(path);
@@ -52,7 +52,7 @@ std::shared_ptr<Ip4Config> Device::ipv4Configuration()
 {
     SAFETY_FIRST_BEGIN
     auto path = m_proxy->Ip4Config.get();
-    if (path.empty()) {
+    if (empty(path)) {
         return nullptr;
     }
     return std::make_shared<Ip4Config>(path);

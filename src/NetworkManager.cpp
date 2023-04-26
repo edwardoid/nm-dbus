@@ -18,7 +18,7 @@ NetworkManager::NetworkManager()
 
         if (st == simppl::dbus::ConnectionState::Connected)
         {
-            m_proxy->ActiveConnections.attach() >> [this] (simppl::dbus::CallState, const std::vector<ObjectPath>& acs) {
+            m_proxy->ActiveConnections.attach() >> [this] (const simppl::dbus::CallState&, const std::vector<ObjectPath>& acs) {
                 std::vector<std::shared_ptr<ActiveConnection>> acp;
                 for(auto c : acs)
                 {
@@ -70,7 +70,7 @@ std::shared_ptr<Device> NetworkManager::getDevice(std::string ifname)
 {
     SAFETY_FIRST_BEGIN
     auto path = m_proxy->GetDeviceByIpIface(ifname);
-    if (path.empty()) {
+    if (empty(path)) {
         return nullptr;
     }
 
@@ -186,7 +186,7 @@ std::string NetworkManager::connect(std::string ifname,
             if (c != nullptr) {
                 auto ac = m_proxy->ActivateConnection(c->path(), dev->path(), ap->path());
 
-                return !ac.empty() ? uuid : "";
+                return empty(ac) ? "" : uuid;
             }
 
             return "";
@@ -213,18 +213,24 @@ bool NetworkManager::activate(std::shared_ptr<Connection> connection,
 
     if (ssidEntry == settings.wireless.cend()) { return false; }
 
-    std::string* ssid = ssidEntry->second.get<std::string>();
+    std::string ssid;
 
-    if (ssid == nullptr) {
+    try
+    {
+        ssid = std::get<std::string>(ssidEntry->second);
+    }
+    catch (std::bad_variant_access const& ex)
+    {
+        LOGGER_ERROR_STREAM << ex.what();
         return false;
     }
 
     for(auto ap : wifiDev->accessPoints()) {
-        if (ap->ssid() == *ssid) {
+        if (ap->ssid() == ssid) {
             auto ac = m_proxy->ActivateConnection(connection->path(),
                                                   device->path(), ap->path());
 
-            return !ac.empty();
+            return !empty(ac);
         }
     }
 

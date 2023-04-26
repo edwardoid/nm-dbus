@@ -33,7 +33,7 @@ std::vector<std::shared_ptr<AccessPoint>> WirelessDevice::accessPoints()
             points.push_back(std::make_shared<AccessPoint>(op));
         }
     }
-    catch(simppl::dbus::Error e)
+    catch(const simppl::dbus::Error& e)
     {
         LOG_ERROR(e);
     }
@@ -44,7 +44,7 @@ std::shared_ptr<AccessPoint> WirelessDevice::activeAccessPoint()
 {
     SAFETY_FIRST_BEGIN
     auto aap = m_proxy->ActiveAccessPoint.get();
-    if (aap.empty()) {
+    if (empty(aap)) {
         return nullptr;
     }
     return std::make_shared<AccessPoint>(aap);
@@ -67,7 +67,7 @@ bool WirelessDevice::scan(bool force)
         m_proxy->RequestScan(WirelessDeviceProxy::ScanOptions());
         return true;
     }
-    catch(simppl::dbus::Error e)
+    catch(const simppl::dbus::Error& e)
     {
         LOG_ERROR(e);
     }

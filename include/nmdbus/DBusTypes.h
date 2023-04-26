@@ -5,6 +5,7 @@
 #include "simppl/objectpath.h"
 #include <simppl/vector.h>
 #include <simppl/map.h>
+#include <variant>
 #include <simppl/variant.h>
 
 #define CONNECTION_DATA_CONNECTION_SECTION "connection"
@@ -17,12 +18,13 @@
 namespace nm
 {
     typedef std::vector<unsigned char> SsidT;
-    typedef std::map<std::string, simppl::Variant<std::string,
-                                                  std::vector<std::string>,
-                                                  uint64_t,
-                                                  SsidT
-                                                   >
+    typedef std::map<std::string, std::variant<std::string,
+                                               std::vector<std::string>,
+                                               uint64_t,
+                                               SsidT>
                     > ConnectionDataSection;
     typedef std::map<std::string, ConnectionDataSection > ConnectionData;
     using ObjectPath = simppl::dbus::ObjectPath;
+
+    inline bool empty(const ObjectPath& path) { return path.path.size() == 0;}
 }

@@ -14,9 +14,11 @@ std::vector<std::string> Ip4Config::ipAdresses()
     for(auto& data : m_proxy->AddressData.get()) {
         for (auto key : data) {
             if (key.first == "address") {
-                auto p = key.second.get<std::string>();
-                if (p != nullptr) {
-                    adresses.push_back(*p);
+                try {
+                    adresses.push_back(std::get<std::string>(key.second));
+                } catch (std::bad_variant_access const& ex)
+                {
+                    LOGGER_ERROR_STREAM << ex.what();
                 }
             }
         }

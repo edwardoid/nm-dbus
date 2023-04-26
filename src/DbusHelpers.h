@@ -1,5 +1,6 @@
 #pragma once
 
+#include <variant>
 #include "simppl/interface.h"
 #include "simppl/property.h"
 #include "simppl/string.h"
@@ -39,7 +40,7 @@
                                          << "\nSerial: " << e.serial() << '\n';
 
 #define SAFETY_FIRST_BEGIN try {
-#define SAFETY_FIRST_END } catch(simppl::dbus::Error e) { LOG_ERROR(e); }
+#define SAFETY_FIRST_END } catch(const simppl::dbus::Error& e) { LOG_ERROR(e); }
 
 #define PROXY(Proxyof, Interface) \
 namespace nm { struct Proxyof ## Proxy  : public simppl::dbus::Stub<Interface> \

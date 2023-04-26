@@ -24,7 +24,7 @@ namespace org
                     Method<out<std::vector<ObjectPath>>> GetAllAccessPoints;
                     typedef std::map<
                                     std::string,
-                                    simppl::Variant<
+                                    std::variant<
                                         std::vector<
                                             simppl::dbus::FixedSizeBuffer<32>
                                         >

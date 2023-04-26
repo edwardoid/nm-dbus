@@ -5,6 +5,7 @@
 #include <simppl/vector.h>
 #include <simppl/serialization.h>
 #include <simppl/struct.h>
+#include <variant>
 
 namespace nm
 {
@@ -16,16 +17,16 @@ namespace nm
         typedef std::vector<unsigned char> byte_array_t;
         typedef std::vector<std::string> string_array_t;
 
-        typedef std::vector<std::map<std::string, simppl::Variant<uint> > > adress_data_t;
+        typedef std::vector<std::map<std::string, std::variant<uint> > > adress_data_t;
 
-        typedef std::map<std::string, simppl::Variant<
+        typedef std::map<std::string, std::variant<
                                             std::string,
                                             string_array_t,
                                             timestamp_t
                                                     >
                         > ConnectionSectionT;
 
-        typedef std::map<std::string, simppl::Variant<
+        typedef std::map<std::string, std::variant<
                                             byte_array_t,
                                             std::string,
                                             string_array_t,
@@ -33,12 +34,12 @@ namespace nm
                                             bool
                                                     >
                         > WirelessSectionT;
-        typedef std::map<std::string, simppl::Variant<
+        typedef std::map<std::string, std::variant<
                                             std::string,
                                             string_array_t
                                                     >
                         > WirelessSecuritySectionT;
-        typedef std::map<std::string, simppl::Variant<
+        typedef std::map<std::string, std::variant<
                                             std::string,
                                             string_array_t,
                                             std::vector<uint32_t>,
@@ -71,7 +72,7 @@ namespace nm
         typedef std::vector<route_entry_t> routedata_t;
 
 
-        typedef std::map<std::string, simppl::Variant<
+        typedef std::map<std::string, std::variant<
                                             std::string,
                                             string_array_t,
                                             std::vector<byte_array_t>,
