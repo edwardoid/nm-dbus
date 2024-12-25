@@ -39,16 +39,16 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER
 )
 
 include(GNUInstallDirs)
-configure_file(${CMAKE_CURRENT_LIST_DIR}/NMDBus.pc.in DESTINATION ${CMAKE_BINARY_DIR}/NMDBus.pc)
-
+#configure_file(${CMAKE_CURRENT_LIST_DIR}/NMDBus.pc.in DESTINATION ${CMAKE_BINARY_DIR}/NMDBus.pc)
+add_subdirectory(3dp/simppl)
 find_package(DBus1 REQUIRED)
-find_package(simppl REQUIRED)
+#find_package(simppl REQUIRED)
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    dbus-1::dbus-1
-    simppl::simppl
+    dbus-1
+    simppl
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
@@ -60,10 +60,11 @@ install(TARGETS ${PROJECT_NAME} EXPORT NMDBusConfig
         ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR})
+
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
-install(EXPORT ${PROJECT_NAME}Config DESTINATION /usr/share/NMDBusConfig/cmake)
+##nstall(EXPORT ${PROJECT_NAME}Config DESTINATION /usr/share/NMDBusConfig/cmake)
 
-export(TARGETS ${PROJECT_NAME} FILE NMDBusConfig.cmake)
+#export(TARGETS ${PROJECT_NAME} FILE NMDBusConfig.cmake)
 
-install(FILES ${CMAKE_BINARY_DIR}/NMDBus.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+#install(FILES ${CMAKE_BINARY_DIR}/NMDBus.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
